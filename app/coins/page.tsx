@@ -18,7 +18,7 @@ const Coins = async ({ searchParams }: NextPageProps) => {
     coinsData = await fetchCoinsMarkets(currentPage, perPage)
   } catch (error) {
     console.error('Failed to fetch coins markets:', error)
-    coinsData = [] // fallback so UI still renders
+    coinsData = []
   }
 
   const columns: DataTableColumn<CoinMarketData>[] = [
@@ -26,10 +26,9 @@ const Coins = async ({ searchParams }: NextPageProps) => {
       header: 'Rank',
       cellClassName: 'rank-cell',
       cell: (coin) => (
-        <>
-          #{coin.market_cap_rank}
-          <Link href={`/coins/${coin.id}`} aria-label='View coin' />
-        </>
+        <Link href={`/coins/${coin.id}`} aria-label={`View ${coin.name}`}>
+          #{coin.market_cap_rank}+{' '}
+        </Link>
       ),
     },
     {
