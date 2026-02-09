@@ -13,6 +13,7 @@ const DataTable = <T,>({
   data,
   rowKey,
   tableClassName,
+  headerClassName,
   headerRowClassName,
   headerCellClassName,
   bodyRowClassName,
@@ -20,14 +21,15 @@ const DataTable = <T,>({
 }: DataTableProps<T>) => {
   return (
     <Table className={cn('custom-scrollbar', tableClassName)}>
-      <TableHeader>
+      <TableHeader className={headerClassName}>
         <TableRow className={cn('hover:bg-transparent!', headerRowClassName)}>
           {columns.map((column, i) => (
             <TableHead
               key={i}
               className={cn(
-                +'bg-dark-400 text-purple-100 py-4 first:pl-5 last:pr-5',
+                'bg-dark-400 text-purple-100 py-4 first:pl-5 last:pr-5',
                 headerCellClassName,
+                column.headClassName,
               )}
             >
               {column.header}
@@ -62,4 +64,5 @@ const DataTable = <T,>({
     </Table>
   )
 }
+
 export default DataTable

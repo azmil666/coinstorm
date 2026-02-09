@@ -1,7 +1,7 @@
 import { fetchTrending } from '@/lib/coingecko.actions'
 import Link from 'next/link'
 import Image from 'next/image'
-import { cn, formatCurrency } from '@/lib/utils'
+import { cn, formatCurrency, formatPercentage } from '@/lib/utils'
 import { TrendingDown, TrendingUp } from 'lucide-react'
 import DataTable from '@/components/DataTable'
 import { TrendingCoinsFallback } from './fallback'
@@ -47,7 +47,7 @@ const TrendingCoins = async () => {
             )}
           >
             <p className='flex items-center'>
-              {/*{formatPercentage(item.data.price_change_percentage_24h.inr)}*/}
+              {formatPercentage(item.data?.price_change_percentage_24h?.inr)}
               {isTrendingUp ? (
                 <TrendingUp width={16} height={16} />
               ) : (
