@@ -103,7 +103,7 @@ const CandlestickChart = ({
       chartRef.current = null
       candleSeriesRef.current = null
     }
-  }, [height, period, ohlcData])
+  }, [height, period])
 
   useEffect(() => {
     if (!candleSeriesRef.current) return
