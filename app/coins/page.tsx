@@ -12,7 +12,14 @@ const Coins = async ({ searchParams }: NextPageProps) => {
   const currentPage = Number(page) || 1
   const perPage = 10
 
-  const coinsData = await fetchCoinsMarkets(currentPage, perPage)
+  let coinsData: CoinMarketData[] = []
+
+  try {
+    coinsData = await fetchCoinsMarkets(currentPage, perPage)
+  } catch (error) {
+    console.error('Failed to fetch coins markets:', error)
+    coinsData = [] // fallback so UI still renders
+  }
 
   const columns: DataTableColumn<CoinMarketData>[] = [
     {
@@ -84,6 +91,11 @@ const Coins = async ({ searchParams }: NextPageProps) => {
           data={coinsData}
           rowKey={(coin) => coin.id}
         />
+        {coinsData.length === 0 && (
+          <p className='text-sm text-gray-400 mt-2'>
+            Unable to load coins right now. Please try again later.
+          </p>
+        )}
 
         <CoinsPagination
           currentPage={currentPage}

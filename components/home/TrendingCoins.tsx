@@ -47,7 +47,7 @@ const TrendingCoins = async () => {
             )}
           >
             <p className='flex items-center'>
-              {formatPercentage(item.data.price_change_percentage_24h.inr)}
+              {formatPercentage(item.data?.price_change_percentage_24h?.inr)}
               {isTrendingUp ? (
                 <TrendingUp width={16} height={16} />
               ) : (
