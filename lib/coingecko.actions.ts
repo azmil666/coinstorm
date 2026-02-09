@@ -57,3 +57,16 @@ export async function fetchOHLC(coinId: string, days: number) {
 export async function fetchTrending() {
   return fetcher<{ coins: TrendingCoin[] }>('/search/trending', undefined, 300)
 }
+export async function fetchCategories() {
+  return fetcher<Category[]>('/coins/categories')
+}
+export async function fetchCoinsMarkets(page: number, perPage: number) {
+  return fetcher<CoinMarketData[]>('/coins/markets', {
+    vs_currency: 'inr',
+    order: 'market_cap_desc',
+    per_page: perPage,
+    page,
+    sparkline: 'false',
+    price_change_percentage: '24h',
+  })
+}
