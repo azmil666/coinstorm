@@ -1,4 +1,4 @@
-'use server'
+import 'server-only'
 
 import qs from 'query-string'
 

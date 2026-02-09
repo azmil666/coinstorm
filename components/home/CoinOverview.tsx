@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { formatCurrency } from '@/lib/utils'
 
 const CoinOverview = async () => {
-  const coin = await fetcher<CoinDetailsData>('/coins/bitcoin', {
+  const coin = await fetcher<CoinDetailsData>('coins/bitcoin', {
     dex_pair_format: 'symbol',
   })
   return (

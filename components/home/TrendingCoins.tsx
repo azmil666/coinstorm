@@ -40,7 +40,8 @@ const TrendingCoins = async () => {
       cellClassName: 'change-cell',
       cell: (coin) => {
         const item = coin.item
-        const isTrendingUp = item.data.price_change_percentage_24h.inr > 0
+        const isTrendingUp =
+          (item.data?.price_change_percentage_24h?.inr ?? 0) > 0
 
         return (
           <div
