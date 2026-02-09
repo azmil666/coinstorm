@@ -14,7 +14,7 @@ import {
   IChartApi,
   ISeriesApi,
 } from 'lightweight-charts'
-import { fetcher } from '@/lib/coingecko.actions'
+import { fetchOHLC } from '@/lib/coingecko.actions'
 import { convertOHLCData } from '@/lib/utils'
 
 const CandlestickChart = ({
@@ -41,10 +41,7 @@ const CandlestickChart = ({
     try {
       const { days, interval } = PERIOD_CONFIG[selectedPeriod]
 
-      const newData = await fetcher<OHLCData[]>(`/coins/${coinId}/ohlc`, {
-        vs_currency: 'inr',
-        days,
-      })
+      const newData = await fetchOHLC(coinId, days)
 
       startTransition(() => {
         setOhlcData(newData ?? [])
@@ -106,7 +103,7 @@ const CandlestickChart = ({
       chartRef.current = null
       candleSeriesRef.current = null
     }
-  }, [height, period])
+  }, [height, period, ohlcData])
 
   useEffect(() => {
     if (!candleSeriesRef.current) return

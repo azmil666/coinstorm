@@ -8,7 +8,7 @@ const API_KEY = process.env.COINGECKO_API_KEY
 if (!BASE_URL) throw new Error('Could not get base url')
 if (!API_KEY) throw new Error('Could not get api key')
 
-export async function fetcher<T>(
+async function fetcher<T>(
   endpoint: string,
   params?: QueryParams,
   revalidate = 60,
@@ -40,4 +40,20 @@ export async function fetcher<T>(
   }
 
   return response.json()
+}
+export async function fetchCoinDetails(coinId: string) {
+  return fetcher<CoinDetailsData>(`/coins/${coinId}`, {
+    dex_pair_format: 'symbol',
+  })
+}
+
+export async function fetchOHLC(coinId: string, days: number) {
+  return fetcher<OHLCData[]>(`/coins/${coinId}/ohlc`, {
+    vs_currency: 'inr',
+    days,
+  })
+}
+
+export async function fetchTrending() {
+  return fetcher<{ coins: TrendingCoin[] }>('/search/trending', undefined, 300)
 }
