@@ -106,7 +106,9 @@ const Page = async ({ params }: NextPageProps) => {
           <ul className='details-grid'>
             {coinDetails.map(({ label, value, link, linkText }, index) => (
               <li key={index}>
-                <p className={label}>{label}</p>
+                <p className={label.toLowerCase().replace(/\s+/g, '-')}>
+                  {label}
+                </p>
 
                 {link ? (
                   <div className='link'>
