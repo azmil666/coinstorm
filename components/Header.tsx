@@ -14,7 +14,7 @@ const Header = () => {
         <Link href='/'>
           <Image
             src='/logo.svg'
-            alt='CoinPulse logo'
+            alt='CoinStorm logo'
             width={132}
             height={40}
             priority

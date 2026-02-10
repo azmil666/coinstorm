@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'CoinPulse',
+  title: 'CoinStorm',
   description: 'Crypto Screener App with built in Terminal and Dashboard',
 }
 
