@@ -11,7 +11,7 @@ import {
   CommandList,
 } from '@/components/ui/command'
 import { Button } from './ui/button'
-import { searchCoins } from '@/lib/coingecko.actions'
+import { searchCoins, fetchTrending } from '@/lib/coingecko.actions'
 import { Search as SearchIcon, TrendingDown, TrendingUp } from 'lucide-react'
 import { useState } from 'react'
 import { cn, formatPercentage } from '@/lib/utils'
@@ -66,11 +66,7 @@ const SearchItem = ({ coin, onSelect, isActiveName }: SearchItemProps) => {
   )
 }
 
-export const SearchModal = ({
-  initialTrendingCoins = [],
-}: {
-  initialTrendingCoins: TrendingCoin[]
-}) => {
+export const SearchModal = () => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
@@ -95,6 +91,11 @@ export const SearchModal = ({
       revalidateOnFocus: false,
     },
   )
+  const { data: trendingData } = useSWR(
+    'trending-coins',
+    () => fetchTrending().then((res) => res.coins),
+    { revalidateOnFocus: false },
+  )
 
   useKey(
     (event) =>
@@ -115,8 +116,8 @@ export const SearchModal = ({
   }
 
   const hasQuery = debouncedQuery.length > 0
-  const trendingCoins = initialTrendingCoins.slice(0, TRENDING_LIMIT)
-  const showTrending = !hasQuery && trendingCoins.length > 0
+  const trendingCoins = trendingData?.slice(0, TRENDING_LIMIT) || []
+  const showTrending = !hasQuery && trendingData
 
   const isSearchEmpty = !isSearching && !hasQuery && !showTrending
   const isTrendingListVisible = !isSearching && showTrending
