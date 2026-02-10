@@ -70,3 +70,16 @@ export async function fetchCoinsMarkets(page: number, perPage: number) {
     price_change_percentage: '24h',
   })
 }
+type SearchResponse = {
+  coins: {
+    id: string
+    name: string
+    symbol: string
+    large: string
+    market_cap_rank: number
+  }[]
+}
+
+export async function searchCoins(query: string) {
+  return fetcher<SearchResponse>('/search', { query })
+}
